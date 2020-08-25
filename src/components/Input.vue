@@ -2,7 +2,7 @@
   <div class="input">
     <label>{{label}} </label>
     <input :type="type" :placeholder="ph" v-model="content"
-
+  :disabled="disabled"
     @input="handleInput">
 
   </div>
@@ -28,6 +28,14 @@ export default {
       type: String,
       default: '',
     },
+    value: {
+      type: String,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -35,11 +43,15 @@ export default {
     // eslint-disable-next-line semi
     }
   },
-
+  watch: {
+  },
+  mounted() {
+    this.content = this.value;
+    console.log(this.value);
+  },
   methods: {
     handleInput() {
       this.$emit('input', this.content);
-      console.log(this.content);
     },
   },
 };

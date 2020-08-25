@@ -25,6 +25,8 @@ export default {
   padding: 5px;
   min-height: 300px;
   border-radius: 5px;
+  margin-top: 30px;
+padding-top: 20px;
 
 }
 body {

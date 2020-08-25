@@ -25,6 +25,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-undo:before {
+  content: "\e900";
+}
+.icon-go:before {
+  content: "\e900";
+}
+.icon-break:before {
+  content: "\e900";
+}
+.icon-return:before {
+  content: "\e900";
+}
+.icon-pencil2:before {
+  content: "\e906";
+}
+.icon-image:before {
+  content: "\e90d";
+}
+.icon-images:before {
+  content: "\e90e";
+}
+.icon-undo1:before {
+  content: "\e965";
+}
+.icon-spinner11:before {
+  content: "\e984";
+}
+.icon-airplane:before {
+  content: "\e9af";
+}
+.icon-info:before {
+  content: "\ea0c";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
 .icon-plus:before {
   content: "\f067";
 }
@@ -79,6 +115,9 @@
 .icon-linkedin:before {
   content: "\f0e1";
 }
+.icon-info1:before {
+  content: "\f129";
+}
 .icon-bullseye:before {
   content: "\f140";
 }
@@ -99,19 +138,4 @@
 }
 .icon-glide:before {
   content: "\f2a5";
-}
-.icon-pencil2:before {
-  content: "\e906";
-}
-.icon-image:before {
-  content: "\e90d";
-}
-.icon-images:before {
-  content: "\e90e";
-}
-.icon-airplane:before {
-  content: "\e9af";
-}
-.icon-cross:before {
-  content: "\ea0f";
 }

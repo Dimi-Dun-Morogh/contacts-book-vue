@@ -3,9 +3,9 @@
     <span class="initials">{{initials}}</span>
     <span>{{contact.name}}</span>
     <div class="buttonsWrap">
-         <Button @click.native="showModal" class="btnEdit">
+            <Button @click.native="contactDetails" class="btnInfo">
         <template v-slot:text>
-          <span class="icon-pencil"></span>
+          <span class="icon-info"></span>
         </template>
       </Button>
       <Button @click.native="showModal" class="btnDelete">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Button from './Button.vue';
 import Modal from './Modal.vue';
 
@@ -52,12 +53,17 @@ export default {
     },
   },
   methods: {
+    ...mapActions('contactsStore', ['selectContact']),
     showModal() {
       this.$refs.modal.show = true;
     },
     onClick() {
       console.log('emitting');
       this.$emit('onDelete', this.contact.id);
+    },
+    contactDetails() {
+      this.selectContact(this.contact);
+      this.$router.push({ name: 'ContactInfo' });
     },
   },
 };
@@ -72,7 +78,7 @@ export default {
   margin-top: 3px;
 }
 .contactItem:hover {
-     box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.7);
   transform: scale(1.12);
 }
 span {
@@ -96,11 +102,12 @@ span {
   height: 30px;
   background-color: #c70909;
 }
- .btnEdit >>> button {
+.btnInfo >>> button {
     width: 30px;
   height: 30px;
-  background-color: #09c71e;
- }
+  background-color: #32bb54;
+ border-right: 1px inset darkcyan;
+}
 .modal-footer__button >>> button {
   background-color: #c70909;
   font-weight: bold;
