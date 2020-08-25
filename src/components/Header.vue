@@ -70,6 +70,9 @@ export default {
       const { name, email, phone } = this;
 
       this.addContact({ name, email, phone });
+      this.name = '';
+      this.email = '';
+      this.phone = '';
       this.$refs.modal.show = false;
     },
     removeError(e) {

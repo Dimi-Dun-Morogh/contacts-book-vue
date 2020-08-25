@@ -16,12 +16,14 @@
     />
 <ContactFieldEdit />
     <div class="timeLapse">
-          <span>One Change Back</span>
-      <Button class="btnPlus" @click.native="addNewField">
+          <span>One Step Back ({{avalaibleSteps}})</span>
+      <Button class="btnPlus" @click.native="timeLapseJump"
+      :disabled="!avalaibleSteps">
         <template v-slot:text>
           <span class="icon-undo1"></span>
         </template>
       </Button>
+      <span></span>
     </div>
   </div>
 </template>
@@ -42,13 +44,19 @@ export default {
   data: () => ({
   }),
   computed: {
-    ...mapGetters('contactsStore', ['selectedContact', 'viewModalFieldEdit']),
+    ...mapGetters('contactsStore', ['selectedContact', 'viewModalFieldEdit', 'timeLapse']),
+    avalaibleSteps() {
+      return this.timeLapse.length;
+    },
   },
   methods: {
-    ...mapActions('contactsStore', ['updateContact', 'setViewModalFieldEdit', 'setCurrentFieldToEdit']),
+    ...mapActions('contactsStore', ['updateContact', 'setViewModalFieldEdit', 'setCurrentFieldToEdit', 'jumpBack']),
     addNewField() {
       this.setCurrentFieldToEdit([]); // clear inputs if it had data from editing existing fields
       this.setViewModalFieldEdit(!this.viewModalFieldEdit);
+    },
+    timeLapseJump() {
+      this.jumpBack();
     },
   },
 };
@@ -64,6 +72,7 @@ export default {
   height: 30px;
   padding: 5px;
   justify-content: center;
+  margin-top: 15px;
 }
 .btnPlus >>> button {
   width: 30px;
@@ -71,5 +80,11 @@ export default {
   background-color: #0971c7;
   margin-left: 5px;
 }
-
+.timeLapse {
+  display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 5px;
+}
 </style>

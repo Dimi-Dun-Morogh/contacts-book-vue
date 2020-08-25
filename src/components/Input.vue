@@ -56,3 +56,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+input:focus {
+outline:none !important;
+}
+</style>

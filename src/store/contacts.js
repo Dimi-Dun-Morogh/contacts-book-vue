@@ -5,7 +5,8 @@ const {
   SELECTED_CONTACT,
   VIEW_MODAL_FIELD_EDIT,
   CURRENT_FIELD_TO_EDIT,
-  TIME_LAPSE,
+  SET_TIME_LAPSE,
+  PUSH_TIME_LAPSE,
 } = mutations;
 
 const Contacts = {
@@ -50,8 +51,11 @@ const Contacts = {
     [CURRENT_FIELD_TO_EDIT](state, value) {
       state.currentFieldToEdit = value;
     },
-    [TIME_LAPSE](state, value) {
+    [SET_TIME_LAPSE](state, value) {
       state.timeLapse = value;
+    },
+    [PUSH_TIME_LAPSE](state, value) {
+      state.timeLapse.push(value);
     },
   },
   actions: {
@@ -60,7 +64,6 @@ const Contacts = {
       const contactsListCopy = { ...contactsList };
       delete contactsListCopy[value];
       commit(CONTACTS_LIST, contactsListCopy);
-      console.log(contactsListCopy, value);
     },
     addContact({ commit, getters }, value) {
       const { contactsList } = getters;
@@ -70,10 +73,13 @@ const Contacts = {
       commit(CONTACTS_LIST, contactsListCopy);
     },
     updateContact({ commit, getters }, value) {
-      const { contactsList } = getters;
-      const contactsListCopy = { ...contactsList };
-      contactsListCopy[value.id] = value;
-      commit(CONTACTS_LIST, contactsListCopy);
+      const { contactsList, selectedContact } = getters;
+
+      // add  contact to timeLapse array;
+      commit(PUSH_TIME_LAPSE, selectedContact);
+
+      contactsList[value.id] = value;
+      commit(CONTACTS_LIST, contactsList);
       commit(SELECTED_CONTACT, value);
     },
     selectContact({ commit }, value) {
@@ -87,16 +93,31 @@ const Contacts = {
     },
     deleteField({ commit, getters }, value) {
       const { selectedContact, contactsList } = getters;
-      const copySelectedContact = { ...selectedContact };
-      const copyContactsList = { ...contactsList };
-      const { id } = copySelectedContact;
-      delete copySelectedContact[value];
-      copyContactsList[id] = copySelectedContact;
-      commit(CONTACTS_LIST, copyContactsList);
-      commit(SELECTED_CONTACT, copySelectedContact);
+      const copyContact = { ...selectedContact };
+
+      // add  contact to timeLapse array;
+      commit(PUSH_TIME_LAPSE, copyContact);
+
+      const { id } = selectedContact;
+      delete selectedContact[value];
+      contactsList[id] = selectedContact;
+
+      // add edited contact to contactsList obj
+      commit(CONTACTS_LIST, contactsList);
+
+      // add edited contact to selectedContact obj for DOM refresh
+      commit(SELECTED_CONTACT, selectedContact);
     },
     setTimeLapse({ commit }, value) {
-      commit(TIME_LAPSE, value);
+      commit(SET_TIME_LAPSE, value);
+    },
+    pushTimeLapse({ commit }, value) {
+      commit(PUSH_TIME_LAPSE, value);
+    },
+    jumpBack({ commit, getters }) {
+      const { timeLapse } = getters;
+      const stepBack = timeLapse.pop();
+      commit(SELECTED_CONTACT, stepBack);
     },
   },
 };

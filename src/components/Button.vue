@@ -30,4 +30,7 @@ button {
 button:hover {
   transform: scale(1.12);
 }
+button:active,button:focus {
+  outline: none !important;
+}
 </style>

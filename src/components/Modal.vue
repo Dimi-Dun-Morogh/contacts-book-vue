@@ -54,7 +54,7 @@ export default {
   min-width: 420px;
   max-width: 480px;
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding-bottom: 5px;

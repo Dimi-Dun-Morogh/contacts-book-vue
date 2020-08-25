@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Button from '@/components/Button.vue';
 
 export default {
@@ -22,7 +22,9 @@ export default {
     ...mapGetters('contactsStore', ['selectedContact']),
   },
   methods: {
+    ...mapActions('contactsStore', ['setTimeLapse']),
     backToMain() {
+      this.setTimeLapse([]);// destroy history
       this.$router.push({ name: 'Home' });
     },
   },
