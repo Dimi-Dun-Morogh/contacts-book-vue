@@ -77,7 +77,7 @@ export default {
       this.$refs.modal.show = true;
     },
     deleteFieldHandler() {
-      console.log('hello');
+      this.$refs.modal.show = false;
       this.deleteField(this.details[0]);
     },
   },
